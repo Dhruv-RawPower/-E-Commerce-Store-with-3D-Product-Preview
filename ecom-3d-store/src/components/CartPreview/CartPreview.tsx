@@ -17,7 +17,7 @@ export default function CartPreview() {
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <div className="fixed top-20 right-4 bg-black bg-opacity-80 text-white p-6 rounded-2xl shadow-2xl w-[360px] z-50 backdrop-blur-sm border border-white/10">
+    <div className="fixed right-4 top-20 w-[90vw] max-w-sm md:max-w-md backdrop-blur-lg bg-white/10 p-4 rounded-2xl shadow-lg">
       <h2 className="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">🛒 Your Cart</h2>
 
       {cart.length === 0 ? (
