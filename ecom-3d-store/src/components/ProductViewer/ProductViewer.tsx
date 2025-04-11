@@ -1,14 +1,25 @@
-// components/ProductViewer/ProductViewer.tsx
 'use client';
 
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
-import { Suspense } from 'react';
-import { useGLTF } from '@react-three/drei';
+import { OrbitControls, useGLTF } from '@react-three/drei';
+import { Suspense, useLayoutEffect, useRef } from 'react';
+import { Group, Box3, Vector3 } from 'three';
 
 function Model({ modelUrl }: { modelUrl: string }) {
   const { scene } = useGLTF(modelUrl);
-  return <primitive object={scene} />;
+  const ref = useRef<Group>(null);
+
+  useLayoutEffect(() => {
+    if (!ref.current) return;
+
+    // Compute bounding box to center model
+    const box = new Box3().setFromObject(ref.current);
+    const center = new Vector3();
+    box.getCenter(center);
+    ref.current.position.sub(center); // Move model to center
+  }, [scene]);
+
+  return <primitive ref={ref} object={scene} />;
 }
 
 export default function ProductViewer({ modelUrl }: { modelUrl: string }) {
