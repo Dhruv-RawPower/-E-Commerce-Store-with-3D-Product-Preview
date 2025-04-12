@@ -8,11 +8,6 @@ import { toast } from "sonner";
 export default function AddToCartButton({ product }: { product: any }) {
   const { addToCart } = useCartStore();
 
-  const handleClick = () => {
-    addToCart(product);
-    alert(`${product.name} added to cart!`);
-  };
-
   return (
 
     <button
