@@ -1,7 +1,5 @@
 {
     "buildCommand": "npm run build",
     "outputDirectory": ".next",
-    "rootDirectory": "src",
     "vercel-build": "prisma generate && next build"
   }
-  
