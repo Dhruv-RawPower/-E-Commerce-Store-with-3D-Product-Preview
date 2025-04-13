@@ -2,10 +2,8 @@
 
 import { useCartStore } from "@/store/useCartStore";
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 export default function CartPreview() {
-  const pathname = usePathname();
 
   const {
     items: cart,
