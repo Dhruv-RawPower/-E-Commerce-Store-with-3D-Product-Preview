@@ -1,9 +1,10 @@
-import { PrismaClient } from '@prisma/client';
+//import { PrismaClient } from '@prisma/client';
 import { notFound } from 'next/navigation';
 import ProductViewer from '@/components/ProductViewer/ProductViewer';
 import AddToCartButton from '@/components/addToCartButton/AddToCartButton';
+import { prisma } from "@/lib/prisma";
 
-const prisma = new PrismaClient();
+//const prisma = new PrismaClient();
 
 export default async function ProductPage({ params }: { params: { id: string } }) {
   const id = Number(params.id);
@@ -43,4 +44,8 @@ export default async function ProductPage({ params }: { params: { id: string } }
       </div>
     </div>
   );
+}
+export async function generateStaticParams() {
+  const products = await prisma.product.findMany({ select: { id: true } });
+  return products.map((product) => ({ id: product.id.toString() }));
 }
