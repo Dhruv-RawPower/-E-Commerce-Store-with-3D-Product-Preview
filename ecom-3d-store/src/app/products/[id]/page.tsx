@@ -6,14 +6,10 @@ import { prisma } from "@/lib/prisma";
 
 //const prisma = new PrismaClient();
 
-type PageProps = {
-  params: {
-    id: string;
-  };
-};
+type PageProps = Promise<{id: string}>; 
 
-export default async function ProductPage({ params }: PageProps) {
-  const id = Number(params.id);
+export default async function ProductPage({ params }: {params : PageProps}) {
+  const id = Number((await params).id);
   if (isNaN(id)) return notFound();
 
   const product = await prisma.product.findUnique({ where: { id } });
@@ -53,5 +49,5 @@ export default async function ProductPage({ params }: PageProps) {
 }
 export async function generateStaticParams() {
   const products = await prisma.product.findMany({ select: { id: true } });
-  return products.map((product) => ({ id: product.id.toString() }));
+  return products.map((product: { id: { toString: () => any; }; }) => ({ id: product.id.toString() }));
 }
