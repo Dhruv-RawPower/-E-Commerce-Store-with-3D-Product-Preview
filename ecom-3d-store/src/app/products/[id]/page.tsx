@@ -47,7 +47,4 @@ export default async function ProductPage({ params }: {params : PageProps}) {
     </div>
   );
 }
-export async function generateStaticParams() {
-  const products = await prisma.product.findMany({ select: { id: true } });
-  return products.map((product: { id: { toString: () => any; }; }) => ({ id: product.id.toString() }));
-}
+
