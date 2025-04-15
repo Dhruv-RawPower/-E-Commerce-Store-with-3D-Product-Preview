@@ -40,7 +40,11 @@ export default function Navbar({ toggleCart }: NavbarProps) {
           </button>
         ) : (
           <button
-            onClick={() => signIn('google')}
+            onClick={() =>{
+              console.log("Attempting login from:", window.location.origin);
+              signIn('google')
+            }
+            }
             className="px-4 py-2 rounded bg-green-600 hover:bg-green-700 text-white"
           >
             Login
