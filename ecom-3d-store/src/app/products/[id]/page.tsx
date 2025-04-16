@@ -13,8 +13,10 @@ export default async function ProductPage({ params }: {params : PageProps}) {
   if (isNaN(id)) return notFound();
 
   const product = await prisma.product.findUnique({ where: { id } });
-
+  console.log('Product:', product);
   if (!product) return notFound();
+  
+  console.log('Model URL:', product.modelUrl);
 
   return (
     <div className="relative flex h-[calc(100vh-80px)] p-6 gap-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
