@@ -14,6 +14,11 @@ export default function CheckoutPage() {
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
+  const formatter = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+  });
+
   useEffect(() => {
     if (status === 'unauthenticated') {
       redirect('/api/auth/signin');
@@ -39,11 +44,11 @@ export default function CheckoutPage() {
                 <div>
                   <p className="text-lg font-semibold">{item.name}</p>
                   <p className="text-sm text-gray-400">
-                    ${item.price.toFixed(2)} × {item.quantity}
+                    {formatter.format(Number(item.price) || 0)} × {item.quantity}
                   </p>
                 </div>
                 <p className="text-lg font-bold">
-                  ${(item.price * item.quantity).toFixed(2)}
+                {formatter.format(Number(item.price * item.quantity) || 0)}
                 </p>
               </div>
             ))}

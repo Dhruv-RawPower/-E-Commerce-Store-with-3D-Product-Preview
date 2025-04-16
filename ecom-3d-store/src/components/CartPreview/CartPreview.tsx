@@ -14,6 +14,11 @@ export default function CartPreview() {
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
+  const formatter = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+  });
+  
   return (
     <div className="fixed right-4 top-20 w-[90vw] max-w-sm md:max-w-md backdrop-blur-lg bg-white/10 p-4 rounded-2xl shadow-lg">
       <h2 className="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">🛒 Your Cart</h2>
@@ -29,7 +34,7 @@ export default function CartPreview() {
             >
               <div>
                 <p className="font-medium">{item.name}</p>
-                <p className="text-sm text-gray-400">${item.price.toFixed(2)} × {item.quantity}</p>
+                <p className="text-sm text-gray-400">{formatter.format(Number(item.price) || 0)} × {item.quantity}</p>
               </div>
               <div className="flex items-center space-x-2">
                 <button
@@ -61,7 +66,7 @@ export default function CartPreview() {
         <div className="mt-5 space-y-4">
           <div className="flex justify-between text-lg font-semibold">
             <span>Total:</span>
-            <span>${total.toFixed(2)}</span>
+            <span>{formatter.format(Number(total) || 0)}</span>
           </div>
 
           <Link href="/checkout">

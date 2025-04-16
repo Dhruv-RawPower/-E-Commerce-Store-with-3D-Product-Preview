@@ -16,7 +16,12 @@ export default async function ProductPage({ params }: {params : PageProps}) {
   console.log('Product:', product);
   if (!product) return notFound();
   
-  console.log('Model URL:', product.modelUrl);
+  const formatter = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+  });
+  
+  const formattedPrice = formatter.format(product.price);
 
   return (
     <div className="relative flex h-[calc(100vh-80px)] p-6 gap-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
@@ -39,7 +44,7 @@ export default async function ProductPage({ params }: {params : PageProps}) {
         </p>
 
         <p className="text-3xl font-bold text-emerald-400 drop-shadow-lg">
-          ${product.price.toFixed(2)}
+          {formattedPrice}
         </p>
 
         <div className="pt-4">

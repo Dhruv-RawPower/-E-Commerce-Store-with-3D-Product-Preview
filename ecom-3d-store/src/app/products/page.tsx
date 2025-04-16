@@ -10,7 +10,12 @@ export default async function ProductsPage() {
     console.error("❌ Failed to fetch products:", err);
     return []; // fallback to empty array
   });
-   
+  
+  const formatter = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+  });
+  
 
   return (
     <div className="p-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
@@ -22,7 +27,7 @@ export default async function ProductsPage() {
         >
           <h2 className="text-xl font-bold">{product.name}</h2>
           <p className="text-gray-600 text-sm">{product.description}</p>
-          <p className="mt-2 font-semibold">₹ {product.price}</p>
+          <p className="mt-2 font-semibold"> {formatter.format(Number(product.price) || 0)}</p>
         </Link>
       ))}
     </div>

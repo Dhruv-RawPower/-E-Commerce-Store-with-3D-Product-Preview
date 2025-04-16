@@ -8,6 +8,11 @@ export default function CartPage() {
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
+  const formatter = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+  });
+
   return (
     <div className="min-h-screen bg-gray-900 text-white p-8">
       <h1 className="text-3xl font-bold mb-6">🛒 Your Cart</h1>
@@ -24,12 +29,12 @@ export default function CartPage() {
               <div>
                 <p className="text-lg font-semibold">{item.name}</p>
                 <p className="text-sm text-gray-400">
-                  ${item.price.toFixed(2)} × {item.quantity}
+                {formatter.format(Number(item.price) || 0)} × {item.quantity}
                 </p>
               </div>
               <div className="flex items-center gap-2">
                 <p className="text-lg font-bold">
-                  ${(item.price * item.quantity).toFixed(2)}
+                {formatter.format(Number(item.price * item.quantity) || 0)}
                 </p>
                 <button
                   onClick={() => removeFromCart(item.id)}
@@ -41,7 +46,7 @@ export default function CartPage() {
             </div>
           ))}
           <div className="text-right mt-4">
-            <p className="text-xl font-bold">Total: ${total.toFixed(2)}</p>
+            <p className="text-xl font-bold">Total: {formatter.format(Number(total.toFixed(2)) || 0)}</p>
           </div>
         </div>
       )}
