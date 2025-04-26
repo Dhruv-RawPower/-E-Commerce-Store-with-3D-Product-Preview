@@ -4,7 +4,6 @@ import { useCartStore } from "@/store/useCartStore";
 import Link from 'next/link';
 
 export default function CartPreview() {
-
   const {
     items: cart,
     removeFromCart,
@@ -18,13 +17,13 @@ export default function CartPreview() {
     style: 'currency',
     currency: 'INR',
   });
-  
+
   return (
-    <div className="fixed right-4 top-20 w-[90vw] max-w-sm md:max-w-md backdrop-blur-lg bg-white/10 p-4 rounded-2xl shadow-lg">
-      <h2 className="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">🛒 Your Cart</h2>
+    <div className="flex flex-col h-full w-full p-4 overflow-y-auto">
+      <h2 className="text-2xl font-bold mb-4 border-b border-gray-700 pb-2 text-white">🛒 Your Cart</h2>
 
       {cart.length === 0 ? (
-        <p className="text-sm text-gray-400 text-center">Your cart is empty.</p>
+        <p className="text-sm text-gray-300 text-center">Your cart is empty.</p>
       ) : (
         <ul className="space-y-4">
           {cart.map((item) => (
@@ -33,20 +32,20 @@ export default function CartPreview() {
               className="flex justify-between items-center border-b border-gray-700 pb-3"
             >
               <div>
-                <p className="font-medium">{item.name}</p>
+                <p className="font-medium text-white">{item.name}</p>
                 <p className="text-sm text-gray-400">{formatter.format(Number(item.price) || 0)} × {item.quantity}</p>
               </div>
               <div className="flex items-center space-x-2">
                 <button
                   onClick={() => decreaseQuantity(item.id)}
-                  className="px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded text-xs"
+                  className="px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded text-xs text-white"
                 >
                   −
                 </button>
-                <span className="text-sm">{item.quantity}</span>
+                <span className="text-sm text-white">{item.quantity}</span>
                 <button
                   onClick={() => increaseQuantity(item.id)}
-                  className="px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded text-xs"
+                  className="px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded text-xs text-white"
                 >
                   +
                 </button>
@@ -64,7 +63,7 @@ export default function CartPreview() {
 
       {cart.length > 0 && (
         <div className="mt-5 space-y-4">
-          <div className="flex justify-between text-lg font-semibold">
+          <div className="flex justify-between text-lg font-semibold text-white">
             <span>Total:</span>
             <span>{formatter.format(Number(total) || 0)}</span>
           </div>
